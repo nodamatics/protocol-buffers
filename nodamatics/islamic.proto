@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "cosmos/staking/v1beta1/tx.proto";
+
+option go_package = "./;pb";
+
+package islamic;
+
+service IslamicProto {
+    rpc GetValidatorInfo(google.protobuf.Empty) returns (GetCosmosValidatorInfoResponse) {
+        option (google.api.http).get = "/getValidatorInfo";
+    }
+    rpc GetStakingStats(GetStakeInfoRequest) returns (GetStakingStatsResponse) {
+        option (google.api.http).get = "/getStakingStats";
+    }
+    rpc BuildDelegateTransaction(AddressAmountTransactionRequest) returns (CosmosTransaction) {
+        option (google.api.http).post = "/buildDelegateTransaction";
+        option (google.api.http).body = "*";
+    }
+    rpc BuildWithdrawDelegatorRewardTransaction(Address) returns (CosmosTransaction) {
+        option (google.api.http).post = "/buildWithdrawDelegatorRewardTransaction";
+        option (google.api.http).body = "*";
+    }
+    rpc BuildUndelegateTransaction(AddressAmountTransactionRequest) returns (CosmosTransaction) {
+        option (google.api.http).post = "/buildUndelegateTransaction";
+        option (google.api.http).body = "*";
+    }
+    rpc BroadcastTransaction(EncodedTxString) returns (TxHash) {
+        option (google.api.http).post = "/broadcastTransaction";
+        option (google.api.http).body = "*";
+    }
+}
+
+message TxHash {
+    string hash = 1;
+}
+
+message EncodedTxString {
+    string tx = 1;
+}
+
+message Address {
+    string address = 1;
+}
+
+message AddressAmountTransactionRequest {
+    string address = 1;
+    cosmos.staking.v1beta1.CosmosCoin amount = 2;
+}
+
+message GetCosmosValidatorInfoResponse {
+    string height = 1;
+    CosmosValidatorInfo result = 2;
+}
+
+message CosmosValidatorInfo {
+    CosmosValidatorCommission commission = 1;
+    CosmosValidatorConsensusPubkey consensus_pubkey = 2;
+    string delegator_shares = 3;
+    CosmosValidatorDescription description = 4;
+    string min_self_delegation = 5;
+    string operator_address = 6;
+    CosmosValidatorStatus status = 7;
+    string tokens = 8;
+    string unbonding_height = 9;
+    string unbonding_time = 10;
+}
+
+message GetStakeInfoRequest {
+    oneof request {
+        string stake_id = 1;
+        string address = 2;
+    }
+}
+
+message GetStakingStatsResponse {
+    int64 staked = 1;
+    int64 totalStaked = 2;
+    int64 unclaimedRewards = 3;
+    int64 lastRewardCycle = 4;
+    int64 withdrawalReady = 5;
+    string withdrawalPending = 6;
+    double APY = 7;
+}
+
+
+message CosmosValidatorConsensusPubkey {
+    string type = 1;
+    string value = 2;
+}
+
+enum CosmosValidatorStatus {
+    VALIDATOR_STATUS_NONE = 0;
+    VALIDATOR_INACTIVE = 1;
+    VALIDATOR_ACTIVE = 3;
+}
+
+message CosmosValidatorDescription {
+    string details = 1;
+    string moniker = 2;
+    string security_contact = 3;
+    string website = 4;
+}
+
+message CosmosValidatorCommission {
+    CosmosValidatorCommissionRate commission_rates = 1;
+    string update_time = 2;
+}
+
+message CosmosValidatorCommissionRate {
+    string max_change_rate = 1;
+    string max_rate = 2;
+    string rate = 3;
+}
+
+message CosmosTransaction {
+    CosmosTransactionBody body = 1;
+    CosmosTransactionAuthInfo auth_info = 2;
+    repeated string signatures = 3;
+
+    message CosmosTransactionBody {
+        repeated google.protobuf.Any messages = 1;
+        string memo = 2;
+        string timeout_height = 3;
+        repeated google.protobuf.Struct extension_options = 4;
+        repeated google.protobuf.Struct non_critical_extension_options = 5;
+    }
+
+    message CosmosTransactionAuthInfo {
+        repeated google.protobuf.Struct signer_infos = 1;
+        CosmosTransactionAuthFee fee = 2;
+
+        message CosmosTransactionAuthFee {
+            repeated cosmos.staking.v1beta1.CosmosCoin amount = 1;
+            string gas_limit = 2;
+            string payer = 3;
+            string granter = 4;
+        }
+    }
+}
