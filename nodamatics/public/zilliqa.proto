@@ -5,13 +5,13 @@ import "nodamatics/shared.proto";
 package nodamatics.public.zilliqa;
 
 service ZilliqaProto {
-    rpc SendSignedTransaction(SendSignedTransactionRequest) returns (TxHash);
-    rpc BuildStakeTransaction(TransactionRequest) returns (TxResponse);
-    rpc BuildWithdrawStakeAmtTransaction(TransactionRequest) returns (TxResponse);
-    rpc BuildCompleteWithdrawTransaction(EmptyAmountTransactionRequest) returns (TxResponse);
-    rpc BuildClaimRewardsTransaction(EmptyAmountTransactionRequest) returns (TxResponse);
-    rpc GetTransactionStatusByHash(TxHash) returns (GetTransactionStatusResponse);
-    rpc GetTransactionStatusById(TxId) returns (GetTransactionStatusResponse);
-    rpc GetStakingStats(PublicKey) returns (GetStakingStatsResponse);
+    rpc SendSignedTransaction(nodamatics.shared.SendSignedTransactionRequest) returns (nodamatics.shared.TxHash);
+    rpc BuildStakeTransaction(nodamatics.shared.TransactionRequest) returns (nodamatics.shared.TxResponse);
+    rpc BuildWithdrawStakeAmtTransaction(nodamatics.shared.TransactionRequest) returns (nodamatics.shared.TxResponse);
+    rpc BuildCompleteWithdrawTransaction(nodamatics.shared.EmptyAmountTransactionRequest) returns (nodamatics.shared.TxResponse);
+    rpc BuildClaimRewardsTransaction(nodamatics.shared.EmptyAmountTransactionRequest) returns (nodamatics.shared.TxResponse);
+    rpc GetTransactionStatusByHash(nodamatics.shared.TxHash) returns (nodamatics.shared.GetTransactionStatusResponse);
+    rpc GetTransactionStatusById(nodamatics.shared.TxId) returns (nodamatics.shared.GetTransactionStatusResponse);
+    rpc GetStakingStats(nodamatics.shared.PublicKey) returns (nodamatics.shared.GetStakingStatsResponse);
 }
 

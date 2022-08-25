@@ -3,31 +3,32 @@ syntax = "proto3";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import 'nodamatics/shared.proto';
+import "cosmos/tx.proto";
 
 option go_package = "./;pb";
 
 package nodamatics.public.islamic;
 
 service IslamicProto {
-    rpc GetValidatorInfo(google.protobuf.Empty) returns (GetCosmosValidatorInfoResponse) {
+    rpc GetValidatorInfo(google.protobuf.Empty) returns (nodamatics.shared.GetCosmosValidatorInfoResponse) {
         option (google.api.http).get = "/getValidatorInfo";
     }
-    rpc GetStakingStats(GetStakeInfoRequest) returns (GetStakingStatsResponse) {
+    rpc GetStakingStats(nodamatics.shared.GetStakeInfoRequest) returns (nodamatics.shared.GetStakingStatsResponse) {
         option (google.api.http).get = "/getStakingStats";
     }
-    rpc BuildDelegateTransaction(AddressAmountTransactionRequest) returns (CosmosTransaction) {
+    rpc BuildDelegateTransaction(cosmos.AddressAmountRequest) returns (cosmos.Transaction) {
         option (google.api.http).post = "/buildDelegateTransaction";
         option (google.api.http).body = "*";
     }
-    rpc BuildWithdrawDelegatorRewardTransaction(Address) returns (CosmosTransaction) {
+    rpc BuildWithdrawDelegatorRewardTransaction(nodamatics.shared.Address) returns (cosmos.Transaction) {
         option (google.api.http).post = "/buildWithdrawDelegatorRewardTransaction";
         option (google.api.http).body = "*";
     }
-    rpc BuildUndelegateTransaction(AddressAmountTransactionRequest) returns (CosmosTransaction) {
+    rpc BuildUndelegateTransaction(cosmos.AddressAmountRequest) returns (cosmos.Transaction) {
         option (google.api.http).post = "/buildUndelegateTransaction";
         option (google.api.http).body = "*";
     }
-    rpc BroadcastTransaction(EncodedTxString) returns (TxHash) {
+    rpc BroadcastTransaction(nodamatics.shared.EncodedTxString) returns (nodamatics.shared.TxHash) {
         option (google.api.http).post = "/broadcastTransaction";
         option (google.api.http).body = "*";
     }

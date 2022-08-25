@@ -7,9 +7,9 @@ package nodamatics.public.ethereum;
 option java_multiple_files = true;
 
 service EthereumProto {
-    rpc StartDepositProcess(StartDepositProcessRequest) returns (DepositId);
-    rpc GetValidatorPubKey(DepositId) returns (PublicKey);
-    rpc GetValidatorInfo(GetEthValidatorInfoRequest) returns (stream GetEthValidatorInfoResponse);
-    rpc BuildDepositTransaction(DepositId) returns (stream DepositTransaction);
-    rpc SendRawTransaction(TxBytes) returns (TxHash);
+    rpc StartDepositProcess(nodamatics.shared.StartDepositProcessRequest) returns (nodamatics.shared.DepositId);
+    rpc GetValidatorPubKey(nodamatics.shared.DepositId) returns (nodamatics.shared.PublicKey);
+    rpc GetValidatorInfo(nodamatics.shared.GetEthValidatorInfoRequest) returns (stream nodamatics.shared.GetEthValidatorInfoResponse);
+    rpc BuildDepositTransaction(nodamatics.shared.DepositId) returns (stream nodamatics.shared.DepositTransaction);
+    rpc SendRawTransaction(nodamatics.shared.TxBytes) returns (nodamatics.shared.TxHash);
 }

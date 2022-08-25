@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+
+package cosmos;
+
+option go_package = "./;pb";
+
+message MsgDelegate {
+  string delegator_address = 1;
+  string validator_address = 2;
+  CosmosCoin amount = 3;
+}
+
+message MsgUndelegate {
+  string delegator_address = 1;
+  string validator_address = 2;
+  CosmosCoin amount = 3;
+}
+
+message CosmosCoin {
+  string denom = 1;
+  string amount = 2;
+}
+
+message AddressAmountRequest {
+  string address = 1;
+  CosmosCoin amount = 2;
+}
+
+message Transaction {
+  Body body = 1;
+  AuthInfo auth_info = 2;
+  repeated string signatures = 3;
+
+  message Body {
+    repeated google.protobuf.Any messages = 1;
+    string memo = 2;
+    string timeout_height = 3;
+    repeated google.protobuf.Struct extension_options = 4;
+    repeated google.protobuf.Struct non_critical_extension_options = 5;
+  }
+
+  message AuthInfo {
+    repeated google.protobuf.Struct signer_infos = 1;
+    Fee fee = 2;
+
+    message Fee {
+      repeated CosmosCoin amount = 1;
+      string gas_limit = 2;
+      string payer = 3;
+      string granter = 4;
+    }
+  }
+}
+

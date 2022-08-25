@@ -1,9 +1,8 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/any.proto";
-import "google/protobuf/struct.proto";
-import "cosmos/staking/v1beta1/tx.proto";
+
+package nodamatics.shared;
 
 message TxId {
   string txId = 1;
@@ -52,11 +51,6 @@ message GetStakingStatsResponse {
 
 message AmountTransactionRequest {
   int64 amount = 1;
-}
-
-message AddressAmountTransactionRequest {
-  string address = 1;
-  cosmos.staking.v1beta1.CosmosCoin amount = 2;
 }
 
 message EmptyAmountTransactionRequest {
@@ -138,21 +132,6 @@ message TokenBalance {
 
 message Amount {
   string amount = 1;
-}
-
-message AccountInfo {
-  string id = 1;
-  string email = 2;
-  string nickname = 3;
-  google.protobuf.Timestamp regDate = 4;
-  bool emailVerified = 5;
-  string vaultTokenId = 6;
-  string vaultToken = 7;
-  repeated ProtectedEmailAttempt emailVerifyAttempts = 8;
-  repeated ChangeEmailAttempt emailChangeAttempts = 9;
-  repeated ProtectedEmailAttempt emailResetPasswordAttempts = 10;
-  TwoFa twoFa = 11;
-  repeated WalletAddress addresses = 12;
 }
 
 message ProtectedAccountInfo {
@@ -328,32 +307,6 @@ message CosmosValidatorInfo {
 message CosmosPubKey {
   string type = 1;
   string value = 2;
-}
-
-message CosmosTransaction {
-  CosmosTransactionBody body = 1;
-  CosmosTransactionAuthInfo auth_info = 2;
-  repeated string signatures = 3;
-
-  message CosmosTransactionBody {
-    repeated google.protobuf.Any messages = 1;
-    string memo = 2;
-    string timeout_height = 3;
-    repeated google.protobuf.Struct extension_options = 4;
-    repeated google.protobuf.Struct non_critical_extension_options = 5;
-  }
-
-  message CosmosTransactionAuthInfo {
-    repeated google.protobuf.Struct signer_infos = 1;
-    CosmosTransactionAuthFee fee = 2;
-
-    message CosmosTransactionAuthFee {
-      repeated cosmos.staking.v1beta1.CosmosCoin amount = 1;
-      string gas_limit = 2;
-      string payer = 3;
-      string granter = 4;
-    }
-  }
 }
 
 message GetStakeInfoRequest {

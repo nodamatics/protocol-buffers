@@ -8,11 +8,11 @@ package nodamatics.public.auth;
 service AuthProto {
     rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
     rpc SignIn(SignInRequest) returns (SignInResponse);
-    rpc SendResetPasswordLink(Email) returns (google.protobuf.Empty);
+    rpc SendResetPasswordLink(nodamatics.shared.Email) returns (google.protobuf.Empty);
     rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty);
     rpc VerifyJwtToken(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc VerifyRecaptcha(Token) returns (google.protobuf.Empty);
+    rpc VerifyRecaptcha(nodamatics.shared.Token) returns (google.protobuf.Empty);
 }
 
 message SignUpRequest {
@@ -30,7 +30,7 @@ message SignInRequest {
 
 message SignInResponse {
     string jwt = 1;
-    ProtectedAccountInfo account = 2;
+    nodamatics.shared.ProtectedAccountInfo account = 2;
 }
 
 message ResetPasswordRequest {

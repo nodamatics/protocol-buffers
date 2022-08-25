@@ -5,7 +5,7 @@ import "nodamatics/shared.proto";
 package nodamatics.public.kusama;
 
 service KusamaProto {
-  rpc GetKusamaStakeAmount (GetKusamaStakeAmountRequest) returns (GetKusamaStakeAmountReply);
-  rpc GetKusamaCommission (GetKusamaCommissionRequest) returns (GetKusamaCommissionReply);
+  rpc GetKusamaStakeAmount (nodamatics.shared.GetKusamaStakeAmountRequest) returns (nodamatics.shared.GetKusamaStakeAmountReply);
+  rpc GetKusamaCommission (nodamatics.shared.GetKusamaCommissionRequest) returns (nodamatics.shared.GetKusamaCommissionReply);
   // rpc SetKusamaValidators (ProtectedSetKusamaValidatorsRequest) returns (SetKusamaValidatorsReply);
 }
