@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "nodamatics/shared.proto";
 
-package nodamatics.zilliqa;
+package nodamatics.public.zilliqa;
 
 service ZilliqaProto {
     rpc SendSignedTransaction(SendSignedTransactionRequest) returns (TxHash);

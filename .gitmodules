@@ -1,0 +1,3 @@
+[submodule "nodamatics/private"]
+	path = nodamatics/private
+	url = git@gitlab.com:nodamatics/backend/private-protocol-buffers.git

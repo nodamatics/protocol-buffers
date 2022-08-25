@@ -3,7 +3,7 @@ syntax = "proto3";
 import "nodamatics/shared.proto";
 import "google/protobuf/empty.proto";
 
-package nodamatics.auth;
+package nodamatics.public.auth;
 
 service AuthProto {
     rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);

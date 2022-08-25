@@ -6,7 +6,7 @@ import 'nodamatics/shared.proto';
 
 option go_package = "./;pb";
 
-package nodamatics.islamic;
+package nodamatics.public.islamic;
 
 service IslamicProto {
     rpc GetValidatorInfo(google.protobuf.Empty) returns (GetCosmosValidatorInfoResponse) {
