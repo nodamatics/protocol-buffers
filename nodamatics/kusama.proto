@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "nodamatics/shared.proto";
+
+package nodamatics.kusama;
+
+service KusamaProto {
+  rpc GetKusamaStakeAmount (GetKusamaStakeAmountRequest) returns (GetKusamaStakeAmountReply);
+  rpc GetKusamaCommission (GetKusamaCommissionRequest) returns (GetKusamaCommissionReply);
+  // rpc SetKusamaValidators (ProtectedSetKusamaValidatorsRequest) returns (SetKusamaValidatorsReply);
+}

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "nodamatics/shared.proto";
+import "google/protobuf/empty.proto";
+
+package nodamatics.auth;
+
+service AuthProto {
+    rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
+    rpc SignIn(SignInRequest) returns (SignInResponse);
+    rpc SendResetPasswordLink(Email) returns (google.protobuf.Empty);
+    rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty);
+    rpc VerifyJwtToken(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc VerifyRecaptcha(Token) returns (google.protobuf.Empty);
+}
+
+message SignUpRequest {
+    string email = 1;
+    string password = 2;
+    string nickname = 3;
+    string inviteCode = 4;
+}
+
+message SignInRequest {
+    string email = 1;
+    string password = 2;
+    string token = 3;
+}
+
+message SignInResponse {
+    string jwt = 1;
+    ProtectedAccountInfo account = 2;
+}
+
+message ResetPasswordRequest {
+    string token = 1;
+    string password = 2;
+}

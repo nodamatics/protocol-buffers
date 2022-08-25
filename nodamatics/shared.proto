@@ -1,0 +1,525 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "cosmos/staking/v1beta1/tx.proto";
+
+message TxId {
+  string txId = 1;
+}
+
+message TxBytes {
+  bytes tx = 1;
+}
+
+message EncodedTxString {
+  string tx = 1;
+}
+
+message TxHash {
+  string hash = 1;
+}
+
+message TxResponse {
+  string txId = 1;
+  bytes tx = 2;
+}
+
+message TransactionRequest {
+  string address = 1;
+  string pubkey = 2;
+  int64 amount = 3;
+}
+
+message Address {
+  string address = 1;
+}
+
+message PublicKey {
+  string pubkey = 1;
+}
+
+message GetStakingStatsResponse {
+  int64 staked = 1;
+  int64 totalStaked = 2;
+  int64 unclaimedRewards = 3;
+  int64 lastRewardCycle = 4;
+  int64 withdrawalReady = 5;
+  string withdrawalPending = 6;
+  double APY = 7;
+}
+
+message AmountTransactionRequest {
+  int64 amount = 1;
+}
+
+message AddressAmountTransactionRequest {
+  string address = 1;
+  cosmos.staking.v1beta1.CosmosCoin amount = 2;
+}
+
+message EmptyAmountTransactionRequest {
+  string address = 1;
+  string pubkey = 2;
+}
+
+message GetTransactionStatusResponse {
+  TransactionStatus status = 1;
+}
+
+message AccountId {
+  string accountId = 1;
+}
+
+enum Network {
+  NONE_NETWORK = 0;
+  TRC20 = 1;
+  ERC20 = 2;
+  ZIL1 = 3;
+  KSM1 = 4;
+  DOT1 = 5;
+}
+
+enum CurrencySymbol {
+  NONE_SYMBOL = 0;
+  BTC = 1;
+  ETH = 2;
+  TRX = 3;
+  ZIL = 4;
+  USDT = 5;
+  USDC = 6;
+  SHIB = 7;
+  LINK = 8;
+  DAI = 9;
+  WBTC = 10;
+  UNI = 11;
+  MANA = 12;
+  JUST = 13;
+  STAKE = 999;
+}
+
+enum TransactionState {
+  NONE_TRANSACTION_STATE = 0;
+  TRANSACTION_CREATED = 1;
+  TRANSACTION_SIGNED = 2;
+  TRANSACTION_SENT = 3;
+  TRANSACTION_COMPLETED = 4;
+}
+
+message BlockchainTransaction {
+  string txId = 1;
+  string data = 2;
+  Network network = 3;
+  string hash = 4;
+  string fromAddress = 5;
+  string toAddress = 6;
+  int64 amount = 7;
+  google.protobuf.Timestamp timestamp = 8;
+  CurrencySymbol symbol = 9;
+  TransactionState state = 10;
+}
+
+message BlockchainWalletInfoRequest {
+  string address = 1;
+  Network network = 2;
+}
+
+message BlockchainWalletInfo {
+  repeated TokenBalance tokens = 1;
+  optional int64 nonce = 2;
+}
+
+message TokenBalance {
+  CurrencySymbol symbol = 1;
+  int64 balance = 2;
+  optional string frozen_balance = 3;
+}
+
+message Amount {
+  string amount = 1;
+}
+
+message AccountInfo {
+  string id = 1;
+  string email = 2;
+  string nickname = 3;
+  google.protobuf.Timestamp regDate = 4;
+  bool emailVerified = 5;
+  string vaultTokenId = 6;
+  string vaultToken = 7;
+  repeated ProtectedEmailAttempt emailVerifyAttempts = 8;
+  repeated ChangeEmailAttempt emailChangeAttempts = 9;
+  repeated ProtectedEmailAttempt emailResetPasswordAttempts = 10;
+  TwoFa twoFa = 11;
+  repeated WalletAddress addresses = 12;
+}
+
+message ProtectedAccountInfo {
+  string id = 1;
+  string email = 2;
+  string nickname = 3;
+  google.protobuf.Timestamp regDate = 4;
+  bool emailVerified = 5;
+  repeated ProtectedEmailAttempt emailVerifyAttempts = 6;
+  repeated ChangeEmailAttempt emailChangeAttempts = 7;
+  repeated ProtectedEmailAttempt emailResetPasswordAttempts = 8;
+  TwoFa twoFa = 9;
+  repeated WalletAddress addresses = 10;
+}
+
+message WalletAddress {
+  Network network = 1;
+  string address = 2;
+}
+
+message ProtectedEmailAttempt {
+  string token = 1;
+  google.protobuf.Timestamp attemptDate = 2;
+  bool used = 3;
+}
+
+message ChangeEmailAttempt {
+  string token = 1;
+  google.protobuf.Timestamp attemptDate = 2;
+  string from = 3;
+  string to = 4;
+  bool used = 5;
+}
+
+enum TwoFaType {
+  DISABLED = 0;
+  ENABLED = 1;
+}
+
+message TwoFa {
+  TwoFaType type = 1;
+  string secretKey = 2;
+}
+
+message Token {
+  string token = 1;
+}
+
+message Email {
+  string email = 1;
+}
+
+message JwtInfo {
+  string accountId = 1;
+  SessionInfo sessionInfo = 2;
+}
+
+message SessionInfo {
+  string id = 1;
+  string metadata = 2;
+  google.protobuf.Timestamp date = 3;
+}
+
+message NewSessionInfo {
+  string metadata = 1;
+  google.protobuf.Timestamp date = 2;
+}
+
+message SendSignedTransactionRequest {
+  string txId = 1;
+  string signature = 2;
+}
+
+message RawTransaction {
+  string tx = 1;
+}
+
+message DepositObject {
+  ValidatorStatusEnum status = 1;
+  string fromAddress = 2;
+  int32 validatorsCount = 3;
+  optional DepositInfoObject depositInfo = 4;
+}
+
+message StakeId {
+  string stake_id = 1;
+}
+
+message DepositId {
+  string depositId = 1;
+}
+
+message StringId {
+  string id = 1;
+}
+
+message StartDepositProcessRequest {
+  string fromAddress = 1;
+  // int32 validatorsCount = 2; ToDo: for feature optimization
+}
+
+message DepositInfoObject {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string amount = 3;
+  string signature = 4;
+  string deposit_message_root = 5;
+  string deposit_data_root = 6;
+  string fork_version = 7;
+  string network_name = 8;
+  string deposit_cli_version = 9;
+}
+
+message GetEthValidatorInfoRequest {
+  oneof request {
+    string depositId = 1;
+    string pubkey = 2;
+  }
+}
+
+message GetCosmosValidatorInfoResponse {
+  string height = 1;
+  CosmosValidatorInfo result = 2;
+}
+
+message GetCosmosValidatorsInfoResponse {
+  string height = 1;
+  repeated CosmosValidatorInfo result = 2;
+}
+
+message CosmosValidatorCommission {
+  CosmosValidatorCommissionRate commission_rates = 1;
+  string update_time = 2;
+}
+
+message CosmosValidatorCommissionRate {
+  string max_change_rate = 1;
+  string max_rate = 2;
+  string rate = 3;
+}
+
+message CosmosValidatorConsensusPubkey {
+  string type = 1;
+  string value = 2;
+}
+
+message CosmosValidatorDescription {
+  string details = 1;
+  string moniker = 2;
+  string security_contact = 3;
+  string website = 4;
+}
+
+enum CosmosValidatorStatus {
+  VALIDATOR_STATUS_NONE = 0;
+  VALIDATOR_INACTIVE = 1;
+  VALIDATOR_ACTIVE = 3;
+}
+
+message CosmosValidatorInfo {
+  CosmosValidatorCommission commission = 1;
+  CosmosValidatorConsensusPubkey consensus_pubkey = 2;
+  string delegator_shares = 3;
+  CosmosValidatorDescription description = 4;
+  string min_self_delegation = 5;
+  string operator_address = 6;
+  CosmosValidatorStatus status = 7;
+  string tokens = 8;
+  string unbonding_height = 9;
+  string unbonding_time = 10;
+}
+
+message CosmosPubKey {
+  string type = 1;
+  string value = 2;
+}
+
+message CosmosTransaction {
+  CosmosTransactionBody body = 1;
+  CosmosTransactionAuthInfo auth_info = 2;
+  repeated string signatures = 3;
+
+  message CosmosTransactionBody {
+    repeated google.protobuf.Any messages = 1;
+    string memo = 2;
+    string timeout_height = 3;
+    repeated google.protobuf.Struct extension_options = 4;
+    repeated google.protobuf.Struct non_critical_extension_options = 5;
+  }
+
+  message CosmosTransactionAuthInfo {
+    repeated google.protobuf.Struct signer_infos = 1;
+    CosmosTransactionAuthFee fee = 2;
+
+    message CosmosTransactionAuthFee {
+      repeated cosmos.staking.v1beta1.CosmosCoin amount = 1;
+      string gas_limit = 2;
+      string payer = 3;
+      string granter = 4;
+    }
+  }
+}
+
+message GetStakeInfoRequest {
+  oneof request {
+    string stake_id = 1;
+    string address = 2;
+  }
+}
+
+
+message GetEthValidatorInfoResponse {
+  oneof info {
+    DepositInfo deposit = 1;
+    ValidatorInfo validator = 2;
+  }
+}
+
+message DepositInfo {
+  string index = 1;
+  DepositInfoData data = 2;
+}
+
+message DepositInfoData {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string amount = 3;
+  string signature = 4;
+}
+
+message ValidatorInfo {
+  bool execution_optimistic = 1;
+  ValidatorInfoData data = 2;
+}
+
+message ValidatorInfoData {
+  string index = 1;
+  string balance = 2;
+  string status = 3;
+  ValidatorObject validator = 4;
+}
+
+message ValidatorObject {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string effective_balance = 3;
+  bool slashed = 4;
+  string activation_eligibility_epoch = 5;
+  string activation_epoch = 6;
+  string exit_epoch = 7;
+  string withdrawable_epoch = 8;
+}
+
+message Web3TransactionConfig {
+  string from = 1;
+  string to = 2;
+  string value = 3;
+  string data = 4;
+  string nonce = 5;
+  string gas = 6;
+  string gasPrice = 7;
+}
+
+message DepositTransaction {
+  oneof deposit {
+    DepositTransactionRequested requested = 1;
+    DepositTransactionReady ready = 2;
+    DepositTransactionFailed failed = 3;
+  }
+}
+
+message DepositTransactionRequested {
+  ValidatorStatusEnum status = 1;
+}
+
+message DepositTransactionReady {
+  bytes raw = 1;
+  Web3TransactionConfig config = 2;
+}
+
+message DepositTransactionFailed {
+  string message = 1;
+}
+
+enum ValidatorStatusEnum {
+  VALIDATOR_NONE = 0;
+  VALIDATOR_REQUESTED = 1;
+  VALIDATOR_PREPARATION = 2;
+  VALIDATOR_READY = 3;
+}
+
+message SignRawTransactionRequest {
+  Web3TransactionConfig txConfig = 1;
+  string privateKey = 2;
+}
+
+enum TransactionStatus {
+  UNKNOWN_TRANSACTION_STATUS = 0;
+  CREATED_TRANSACTION_STATUS = 1;
+  SUCCESS_TRANSACTION_STATUS = 2;
+  PENDING_TRANSACTION_STATUS = 3;
+  FAILED_TRANSACTION_STATUS = 4;
+}
+
+enum StatusCode {
+  OK = 0;
+  CANCELLED = 1;
+  UNKNOWN = 2;
+  INVALID_ARGUMENT = 3;
+  DEADLINE_EXCEEDED = 4;
+  NOT_FOUND = 5;
+  ALREADY_EXISTS = 6;
+  PERMISSION_DENIED = 7;
+  RESOURCE_EXHAUSTED = 8;
+  FAILED_PRECONDITION = 9;
+  ABORTED = 10;
+  OUT_OF_RANGE = 11;
+  UNIMPLEMENTED = 12;
+  INTERNAL = 13;
+  UNAVAILABLE = 14;
+  DATA_LOSS = 15;
+  UNAUTHENTICATED = 16;
+  BLOCKCHAIN_ERROR = 17;
+  VALIDATION_FAILED = 18;
+}
+
+
+message KusamaActiveEra {
+  uint32 index = 1;
+  google.protobuf.Timestamp startTimestamp = 2;
+  google.protobuf.Timestamp endTimestamp = 3;
+}
+
+message GetKusamaStakeAmountRequest {
+}
+
+message GetKusamaStakeAmountReply {
+  repeated string validatorIds = 1;
+  string totalStake = 2;
+  string activeStake = 3;
+  string stakes = 4;
+  string currentBlock = 5;
+  KusamaActiveEra activeEra = 7;
+}
+
+message GetKusamaCommissionRequest {
+}
+
+message ProtectedGetKusamaCommissionRequest {
+  string jwt = 1;
+}
+
+message GetKusamaCommissionReply {
+  map<string, uint32> commission_per_billions = 1;
+  string currentBlock = 2;
+  KusamaActiveEra activeEra = 3;
+}
+
+message SetKusamaValidatorsRequest {
+  repeated string validatorIds = 1;
+}
+
+message ProtectedSetKusamaValidatorsRequest {
+  repeated string validatorIds = 1;
+  string jwt = 2;
+}
+
+message SetKusamaValidatorsReply {
+  repeated string prevValidatorIds = 1;
+}

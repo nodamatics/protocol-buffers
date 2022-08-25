@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "nodamatics/shared.proto";
+
+package nodamatics.ethereum;
+
+option java_multiple_files = true;
+
+service EthereumProto {
+    rpc StartDepositProcess(StartDepositProcessRequest) returns (DepositId);
+    rpc GetValidatorPubKey(DepositId) returns (PublicKey);
+    rpc GetValidatorInfo(GetEthValidatorInfoRequest) returns (stream GetEthValidatorInfoResponse);
+    rpc BuildDepositTransaction(DepositId) returns (stream DepositTransaction);
+    rpc SendRawTransaction(TxBytes) returns (TxHash);
+}

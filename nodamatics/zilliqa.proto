@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "nodamatics/shared.proto";
+
+package nodamatics.zilliqa;
+
+service ZilliqaProto {
+    rpc SendSignedTransaction(SendSignedTransactionRequest) returns (TxHash);
+    rpc BuildStakeTransaction(TransactionRequest) returns (TxResponse);
+    rpc BuildWithdrawStakeAmtTransaction(TransactionRequest) returns (TxResponse);
+    rpc BuildCompleteWithdrawTransaction(EmptyAmountTransactionRequest) returns (TxResponse);
+    rpc BuildClaimRewardsTransaction(EmptyAmountTransactionRequest) returns (TxResponse);
+    rpc GetTransactionStatusByHash(TxHash) returns (GetTransactionStatusResponse);
+    rpc GetTransactionStatusById(TxId) returns (GetTransactionStatusResponse);
+    rpc GetStakingStats(PublicKey) returns (GetStakingStatsResponse);
+}
+
