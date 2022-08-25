@@ -1,0 +1,21 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: nodamatics.islamic.IslamicProto.GetValidatorInfo
+      get: /getValidatorInfo
+    - selector: nodamatics.islamic.IslamicProto.GetStakingStats
+      get: /getStakingStats
+    - selector: nodamatics.islamic.IslamicProto.BuildDelegateTransaction
+      post: /buildDelegateTransaction
+      body: "*"
+    - selector: nodamatics.islamic.IslamicProto.BuildWithdrawRewardTransaction
+      post: /buildWithdrawRewardTransaction
+      body: "*"
+    - selector: nodamatics.islamic.IslamicProto.BuildUndelegateTransaction
+      post: /BuildUndelegateTransaction
+      body: "*"
+    - selector: nodamatics.islamic.IslamicProto.BroadcastTransaction
+      post: /BroadcastTransaction
+      body: "*"
