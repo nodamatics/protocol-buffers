@@ -316,6 +316,9 @@ message GetStakeInfoRequest {
   }
 }
 
+message SuccessResponse {
+  bool success = 1;
+}
 
 message GetEthValidatorInfoResponse {
   oneof info {

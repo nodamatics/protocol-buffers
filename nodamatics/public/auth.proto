@@ -3,7 +3,7 @@ syntax = "proto3";
 import "nodamatics/shared.proto";
 import "google/protobuf/empty.proto";
 
-package nodamatics.public.auth;
+package nodamatics.auth;
 
 service AuthProto {
     rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
@@ -12,7 +12,7 @@ service AuthProto {
     rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty);
     rpc VerifyJwtToken(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc VerifyRecaptcha(nodamatics.shared.Token) returns (google.protobuf.Empty);
+    rpc VerifyRecaptcha(nodamatics.shared.Token) returns (nodamatics.shared.SuccessResponse);
 }
 
 message SignUpRequest {

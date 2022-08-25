@@ -4,7 +4,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/struct.proto";
 
-package cosmos;
+package cosmos.staking.v1beta1;
 
 option go_package = "./;pb";
 
@@ -30,7 +30,7 @@ message AddressAmountRequest {
   CosmosCoin amount = 2;
 }
 
-message Transaction {
+message CosmosTransaction {
   Body body = 1;
   AuthInfo auth_info = 2;
   repeated string signatures = 3;

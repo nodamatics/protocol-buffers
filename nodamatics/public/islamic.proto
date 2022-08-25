@@ -1,35 +1,18 @@
 syntax = "proto3";
 
-import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import 'nodamatics/shared.proto';
-import "cosmos/tx.proto";
+import "cosmos/staking/v1beta1/tx.proto";
 
 option go_package = "./;pb";
 
-package nodamatics.public.islamic;
+package nodamatics.islamic;
 
 service IslamicProto {
-    rpc GetValidatorInfo(google.protobuf.Empty) returns (nodamatics.shared.GetCosmosValidatorInfoResponse) {
-        option (google.api.http).get = "/getValidatorInfo";
-    }
-    rpc GetStakingStats(nodamatics.shared.GetStakeInfoRequest) returns (nodamatics.shared.GetStakingStatsResponse) {
-        option (google.api.http).get = "/getStakingStats";
-    }
-    rpc BuildDelegateTransaction(cosmos.AddressAmountRequest) returns (cosmos.Transaction) {
-        option (google.api.http).post = "/buildDelegateTransaction";
-        option (google.api.http).body = "*";
-    }
-    rpc BuildWithdrawDelegatorRewardTransaction(nodamatics.shared.Address) returns (cosmos.Transaction) {
-        option (google.api.http).post = "/buildWithdrawDelegatorRewardTransaction";
-        option (google.api.http).body = "*";
-    }
-    rpc BuildUndelegateTransaction(cosmos.AddressAmountRequest) returns (cosmos.Transaction) {
-        option (google.api.http).post = "/buildUndelegateTransaction";
-        option (google.api.http).body = "*";
-    }
-    rpc BroadcastTransaction(nodamatics.shared.EncodedTxString) returns (nodamatics.shared.TxHash) {
-        option (google.api.http).post = "/broadcastTransaction";
-        option (google.api.http).body = "*";
-    }
+    rpc GetValidatorInfo(google.protobuf.Empty) returns (nodamatics.shared.GetCosmosValidatorInfoResponse);
+    rpc GetStakingStats(nodamatics.shared.GetStakeInfoRequest) returns (nodamatics.shared.GetStakingStatsResponse);
+    rpc BuildDelegateTransaction(cosmos.staking.v1beta1.AddressAmountRequest) returns (cosmos.staking.v1beta1.CosmosTransaction);
+    rpc BuildWithdrawRewardTransaction(nodamatics.shared.Address) returns (cosmos.staking.v1beta1.CosmosTransaction) ;
+    rpc BuildUndelegateTransaction(cosmos.staking.v1beta1.AddressAmountRequest) returns (cosmos.staking.v1beta1.CosmosTransaction);
+    rpc BroadcastTransaction(nodamatics.shared.EncodedTxString) returns (nodamatics.shared.TxHash);
 }

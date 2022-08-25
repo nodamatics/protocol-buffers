@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "nodamatics/shared.proto";
 
-package nodamatics.public.kusama;
+package nodamatics.kusama;
 
 service KusamaProto {
   rpc GetKusamaStakeAmount (nodamatics.shared.GetKusamaStakeAmountRequest) returns (nodamatics.shared.GetKusamaStakeAmountReply);

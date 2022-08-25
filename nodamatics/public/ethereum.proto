@@ -2,9 +2,7 @@ syntax = "proto3";
 
 import "nodamatics/shared.proto";
 
-package nodamatics.public.ethereum;
-
-option java_multiple_files = true;
+package nodamatics.ethereum;
 
 service EthereumProto {
     rpc StartDepositProcess(nodamatics.shared.StartDepositProcessRequest) returns (nodamatics.shared.DepositId);
