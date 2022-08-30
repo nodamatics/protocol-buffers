@@ -2,8 +2,8 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import 'nodamatics/shared.proto';
-import "cosmos/staking/v1beta1/tx.proto";
-import "cosmos/distribution/v1beta1/tx.proto";
+import "cosmos/staking.proto";
+import "cosmos/distribution.proto";
 
 option go_package = "./;pb";
 
