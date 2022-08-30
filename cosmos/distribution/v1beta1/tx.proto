@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package cosmos.distribution.v1beta1;
+
+option go_package = "./;pb";
+
+message MsgWithdrawDelegatorReward {
+  string delegator_address = 1;
+  string validator_address = 2;
+}

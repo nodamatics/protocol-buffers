@@ -15,7 +15,6 @@ message DepositObject {
 
 message StartDepositProcessRequest {
   string fromAddress = 1;
-  optional string customerId = 2;
   // int32 validatorsCount = 3; ToDo: for feature optimization
 }
 
