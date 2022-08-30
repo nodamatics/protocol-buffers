@@ -5,9 +5,9 @@ import 'nodamatics/shared.proto';
 import "cosmos/staking.proto";
 import "cosmos/distribution.proto";
 
-option go_package = "./;pb";
-
 package nodamatics.staking.islm;
+
+option go_package = "./;pb";
 
 service IslamicStaking {
     rpc GetValidatorInfo(google.protobuf.Empty) returns (cosmos.staking.v1beta1.GetCosmosValidatorInfoResponse);
@@ -16,4 +16,10 @@ service IslamicStaking {
     rpc BuildWithdrawRewardTransaction(nodamatics.shared.Address) returns (cosmos.staking.v1beta1.CosmosTransaction) ;
     rpc BuildUndelegateTransaction(cosmos.staking.v1beta1.AddressAmountRequest) returns (cosmos.staking.v1beta1.CosmosTransaction);
     rpc BroadcastTransaction(nodamatics.shared.EncodedTxString) returns (nodamatics.shared.TxHash);
+}
+
+message CosmosTransactionMessages {
+    cosmos.staking.v1beta1.MsgDelegate delegate = 1;
+    cosmos.staking.v1beta1.MsgUndelegate undelegate = 2;
+    cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward reward = 3;
 }
