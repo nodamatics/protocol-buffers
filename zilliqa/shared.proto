@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "./;pb";
+
+package zilliqa.shared;
+
+message SendSignedTransactionRequest {
+  string txId = 1;
+  string signature = 2;
+}
+
+message TransactionRequest {
+  string address = 1;
+  string pubkey = 2;
+  int64 amount = 3;
+}
+
+message TransactionResponse {
+  string txId = 1;
+  bytes tx = 2;
+}
+
+message EmptyAmountTransactionRequest {
+  string address = 1;
+  string pubkey = 2;
+}
+
+enum TransactionStatus {
+  UNKNOWN_TRANSACTION_STATUS = 0;
+  CREATED_TRANSACTION_STATUS = 1;
+  SUCCESS_TRANSACTION_STATUS = 2;
+  PENDING_TRANSACTION_STATUS = 3;
+  FAILED_TRANSACTION_STATUS = 4;
+}
+
+message GetTransactionStatusResponse {
+  TransactionStatus status = 1;
+}

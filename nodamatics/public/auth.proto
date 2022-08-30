@@ -2,17 +2,18 @@ syntax = "proto3";
 
 import "nodamatics/shared.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 package nodamatics.auth;
 
 service AuthProto {
     rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
     rpc SignIn(SignInRequest) returns (SignInResponse);
-    rpc SendResetPasswordLink(nodamatics.shared.Email) returns (google.protobuf.Empty);
+    rpc SendResetPasswordLink(Email) returns (google.protobuf.Empty);
     rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty);
     rpc VerifyJwtToken(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc VerifyRecaptcha(nodamatics.shared.Token) returns (nodamatics.shared.SuccessResponse);
+    rpc VerifyRecaptcha(Token) returns (nodamatics.shared.SuccessResponse);
 }
 
 message SignUpRequest {
@@ -30,10 +31,76 @@ message SignInRequest {
 
 message SignInResponse {
     string jwt = 1;
-    nodamatics.shared.ProtectedAccountInfo account = 2;
+    ProtectedAccountInfo account = 2;
 }
 
 message ResetPasswordRequest {
     string token = 1;
     string password = 2;
+}
+
+message WalletAddress {
+    nodamatics.shared.Network network = 1;
+    string address = 2;
+}
+
+message ProtectedAccountInfo {
+    string id = 1;
+    string email = 2;
+    string nickname = 3;
+    google.protobuf.Timestamp regDate = 4;
+    bool emailVerified = 5;
+    repeated ProtectedEmailAttempt emailVerifyAttempts = 6;
+    repeated ChangeEmailAttempt emailChangeAttempts = 7;
+    repeated ProtectedEmailAttempt emailResetPasswordAttempts = 8;
+    TwoFa twoFa = 9;
+    repeated WalletAddress addresses = 10;
+}
+
+message ProtectedEmailAttempt {
+    string token = 1;
+    google.protobuf.Timestamp attemptDate = 2;
+    bool used = 3;
+}
+
+message ChangeEmailAttempt {
+    string token = 1;
+    google.protobuf.Timestamp attemptDate = 2;
+    string from = 3;
+    string to = 4;
+    bool used = 5;
+}
+
+enum TwoFaType {
+    DISABLED = 0;
+    ENABLED = 1;
+}
+
+message TwoFa {
+    TwoFaType type = 1;
+    string secretKey = 2;
+}
+
+message Token {
+    string token = 1;
+}
+
+message Email {
+    string email = 1;
+}
+
+message JwtInfo {
+    string accountId = 1;
+    SessionInfo sessionInfo = 2;
+}
+
+message SessionInfo {
+    string id = 1;
+    string metadata = 2;
+    google.protobuf.Timestamp date = 3;
+}
+
+message NewSessionInfo {
+    string metadata = 1;
+    google.protobuf.Timestamp date = 2;
 }

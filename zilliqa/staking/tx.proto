@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "./;pb";
+
+package zilliqa.staking;
+
+message GetStakingStatsResponse {
+  int64 staked = 1;
+  int64 totalStaked = 2;
+  int64 unclaimedRewards = 3;
+  int64 lastRewardCycle = 4;
+  int64 withdrawalReady = 5;
+  string withdrawalPending = 6;
+  double APY = 7;
+}

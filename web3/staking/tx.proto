@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+import "web3/shared.proto";
+
+option go_package = "./;pb";
+
+package web3.staking;
+
+message DepositObject {
+  ValidatorStatusEnum status = 1;
+  string fromAddress = 2;
+  int32 validatorsCount = 3;
+  optional DepositInfoObject depositInfo = 4;
+}
+
+message StartDepositProcessRequest {
+  string fromAddress = 1;
+  optional string customerId = 2;
+  // int32 validatorsCount = 3; ToDo: for feature optimization
+}
+
+message DepositInfoObject {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string amount = 3;
+  string signature = 4;
+  string deposit_message_root = 5;
+  string deposit_data_root = 6;
+  string fork_version = 7;
+  string network_name = 8;
+  string deposit_cli_version = 9;
+}
+
+message GetValidatorInfoRequest {
+  oneof request {
+    string depositId = 1;
+    string pubkey = 2;
+  }
+}
+
+message GetStakeInfoRequest {
+  oneof request {
+    string stake_id = 1;
+    string address = 2;
+  }
+}
+
+message GetValidatorInfoResponse {
+  oneof info {
+    DepositInfo deposit = 1;
+    ValidatorInfo validator = 2;
+  }
+}
+
+message DepositInfo {
+  string index = 1;
+  DepositInfoData data = 2;
+}
+
+message DepositInfoData {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string amount = 3;
+  string signature = 4;
+}
+
+message ValidatorInfo {
+  bool execution_optimistic = 1;
+  ValidatorInfoData data = 2;
+}
+
+message ValidatorInfoData {
+  string index = 1;
+  string balance = 2;
+  string status = 3;
+  ValidatorObject validator = 4;
+}
+
+message ValidatorObject {
+  string pubkey = 1;
+  string withdrawal_credentials = 2;
+  string effective_balance = 3;
+  bool slashed = 4;
+  string activation_eligibility_epoch = 5;
+  string activation_epoch = 6;
+  string exit_epoch = 7;
+  string withdrawable_epoch = 8;
+}
+
+message DepositTransaction {
+  oneof deposit {
+    DepositTransactionRequested requested = 1;
+    DepositTransactionReady ready = 2;
+    DepositTransactionFailed failed = 3;
+  }
+}
+
+message DepositTransactionRequested {
+  ValidatorStatusEnum status = 1;
+}
+
+message DepositTransactionReady {
+  bytes raw = 1;
+  web3.shared.TransactionConfig config = 2;
+}
+
+message DepositTransactionFailed {
+  string message = 1;
+}
+
+enum ValidatorStatusEnum {
+  VALIDATOR_NONE = 0;
+  VALIDATOR_REQUESTED = 1;
+  VALIDATOR_PREPARATION = 2;
+  VALIDATOR_READY = 3;
+}

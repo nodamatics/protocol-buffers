@@ -2,9 +2,9 @@ syntax = "proto3";
 
 import "nodamatics/shared.proto";
 
-package nodamatics.kusama;
+package nodamatics.staking.ksm;
 
-service KusamaProto {
+service KusamaStaking {
   rpc GetKusamaStakeAmount (nodamatics.shared.GetKusamaStakeAmountRequest) returns (nodamatics.shared.GetKusamaStakeAmountReply);
   rpc GetKusamaCommission (nodamatics.shared.GetKusamaCommissionRequest) returns (nodamatics.shared.GetKusamaCommissionReply);
   // rpc SetKusamaValidators (ProtectedSetKusamaValidatorsRequest) returns (SetKusamaValidatorsReply);

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "nodamatics/shared.proto";
+import "web3/staking/tx.proto";
+
+package nodamatics.staking.eth;
+
+service EthereumStaking {
+    rpc StartDepositProcess(web3.staking.StartDepositProcessRequest) returns (nodamatics.shared.DepositId);
+    rpc GetValidatorPubKey(nodamatics.shared.DepositId) returns (nodamatics.shared.PublicKey);
+    rpc GetValidatorInfo(web3.staking.GetValidatorInfoRequest) returns (stream web3.staking.GetValidatorInfoResponse);
+    rpc BuildDepositTransaction(nodamatics.shared.DepositId) returns (stream web3.staking.DepositTransaction);
+    rpc SendRawTransaction(nodamatics.shared.TxBytes) returns (nodamatics.shared.TxHash);
+}

@@ -56,3 +56,66 @@ message CosmosTransaction {
   }
 }
 
+message GetCosmosValidatorInfoResponse {
+  string height = 1;
+  CosmosValidatorInfo result = 2;
+}
+
+message GetCosmosValidatorsInfoResponse {
+  string height = 1;
+  repeated CosmosValidatorInfo result = 2;
+}
+
+message CosmosValidatorCommission {
+  CosmosValidatorCommissionRate commission_rates = 1;
+  string update_time = 2;
+}
+
+message CosmosValidatorCommissionRate {
+  string max_change_rate = 1;
+  string max_rate = 2;
+  string rate = 3;
+}
+
+message CosmosValidatorConsensusPubkey {
+  string type = 1;
+  string value = 2;
+}
+
+message CosmosValidatorDescription {
+  string details = 1;
+  string moniker = 2;
+  string security_contact = 3;
+  string website = 4;
+}
+
+enum CosmosValidatorStatus {
+  VALIDATOR_STATUS_NONE = 0;
+  VALIDATOR_INACTIVE = 1;
+  VALIDATOR_ACTIVE = 3;
+}
+
+message CosmosValidatorInfo {
+  CosmosValidatorCommission commission = 1;
+  CosmosValidatorConsensusPubkey consensus_pubkey = 2;
+  string delegator_shares = 3;
+  CosmosValidatorDescription description = 4;
+  string min_self_delegation = 5;
+  string operator_address = 6;
+  CosmosValidatorStatus status = 7;
+  string tokens = 8;
+  string unbonding_height = 9;
+  string unbonding_time = 10;
+}
+
+message CosmosPubKey {
+  string type = 1;
+  string value = 2;
+}
+
+message GetCosmosStakingStatsResponse {
+  cosmos.staking.v1beta1.CosmosCoin staked = 1;
+  cosmos.staking.v1beta1.CosmosCoin totalStaked = 2;
+  repeated cosmos.staking.v1beta1.CosmosCoin unclaimedRewards = 3;
+  double APY = 4;
+}

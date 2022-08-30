@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "./;pb";
+
+package web3.shared;
+
+message TransactionConfig {
+  string from = 1;
+  string to = 2;
+  string value = 3;
+  string data = 4;
+  string nonce = 5;
+  string gas = 6;
+  string gasPrice = 7;
+}
+
+message SignRawTransactionRequest {
+  TransactionConfig txConfig = 1;
+  string privateKey = 2;
+}
