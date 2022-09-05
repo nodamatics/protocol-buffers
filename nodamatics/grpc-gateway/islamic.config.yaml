@@ -3,19 +3,19 @@ config_version: 3
 
 http:
   rules:
-    - selector: nodamatics.islamic.IslamicProto.GetValidatorInfo
+    - selector: nodamatics.staking.islm.IslamicStaking.GetValidatorInfo
       get: /getValidatorInfo
-    - selector: nodamatics.islamic.IslamicProto.GetStakingStats
+    - selector: nodamatics.staking.islm.IslamicStaking.GetStakingStats
       get: /getStakingStats
-    - selector: nodamatics.islamic.IslamicProto.BuildDelegateTransaction
+    - selector: nodamatics.staking.islm.IslamicStaking.BuildDelegateTransaction
       post: /buildDelegateTransaction
       body: "*"
-    - selector: nodamatics.islamic.IslamicProto.BuildWithdrawRewardTransaction
+    - selector: nodamatics.staking.islm.IslamicStaking.BuildWithdrawRewardTransaction
       post: /buildWithdrawRewardTransaction
       body: "*"
-    - selector: nodamatics.islamic.IslamicProto.BuildUndelegateTransaction
+    - selector: nodamatics.staking.islm.IslamicStaking.BuildUndelegateTransaction
       post: /BuildUndelegateTransaction
       body: "*"
-    - selector: nodamatics.islamic.IslamicProto.BroadcastTransaction
+    - selector: nodamatics.staking.islm.IslamicStaking.BroadcastTransaction
       post: /BroadcastTransaction
       body: "*"
