@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-import "nodamatics/shared.proto";
+import 'nodamatics/shared.proto';
+import "google/protobuf/empty.proto";
 
 package nodamatics.staking.ksm;
 
 service KusamaStaking {
-  rpc GetKusamaStakeAmount (nodamatics.shared.GetKusamaStakeAmountRequest) returns (nodamatics.shared.GetKusamaStakeAmountReply);
-  rpc GetKusamaCommission (nodamatics.shared.GetKusamaCommissionRequest) returns (nodamatics.shared.GetKusamaCommissionReply);
-  // rpc SetKusamaValidators (ProtectedSetKusamaValidatorsRequest) returns (SetKusamaValidatorsReply);
+  rpc GetKusamaStakeAmount (google.protobuf.Empty) returns (nodamatics.shared.GetPolkadotStakeAmountResponse);
+  rpc GetKusamaCommission (google.protobuf.Empty) returns (nodamatics.shared.GetPolkadotCommissionResponse);
 }

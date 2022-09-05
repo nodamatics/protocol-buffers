@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import 'nodamatics/shared.proto';
+import "google/protobuf/empty.proto";
+
+package nodamatics.staking.dot;
+
+service PolkadotStaking {
+  rpc GetPolkadotStakeAmount (google.protobuf.Empty) returns (nodamatics.shared.GetPolkadotStakeAmountResponse);
+  rpc GetPolkadotCommission (google.protobuf.Empty) returns (nodamatics.shared.GetPolkadotCommissionResponse);
+}

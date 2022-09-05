@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 package nodamatics.auth;
 
-service AuthProto {
+service Auth {
     rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
     rpc SignIn(SignInRequest) returns (SignInResponse);
     rpc SendResetPasswordLink(Email) returns (google.protobuf.Empty);

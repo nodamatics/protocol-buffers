@@ -154,10 +154,7 @@ message KusamaActiveEra {
   google.protobuf.Timestamp endTimestamp = 3;
 }
 
-message GetKusamaStakeAmountRequest {
-}
-
-message GetKusamaStakeAmountReply {
+message GetPolkadotStakeAmountResponse {
   repeated string validatorIds = 1;
   string totalStake = 2;
   string activeStake = 3;
@@ -166,28 +163,16 @@ message GetKusamaStakeAmountReply {
   KusamaActiveEra activeEra = 7;
 }
 
-message GetKusamaCommissionRequest {
-}
-
-message ProtectedGetKusamaCommissionRequest {
-  string jwt = 1;
-}
-
-message GetKusamaCommissionReply {
+message GetPolkadotCommissionResponse {
   map<string, uint32> commission_per_billions = 1;
   string currentBlock = 2;
   KusamaActiveEra activeEra = 3;
 }
 
-message SetKusamaValidatorsRequest {
+message SetPolkadotValidatorsRequest {
   repeated string validatorIds = 1;
 }
 
-message ProtectedSetKusamaValidatorsRequest {
-  repeated string validatorIds = 1;
-  string jwt = 2;
-}
-
-message SetKusamaValidatorsReply {
+message SetPolkadotValidatorsResponse {
   repeated string prevValidatorIds = 1;
 }
