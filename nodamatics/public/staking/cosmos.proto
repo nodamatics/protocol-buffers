@@ -4,11 +4,11 @@ import "google/protobuf/empty.proto";
 import 'nodamatics/shared.proto';
 import "cosmos/staking.proto";
 
-package nodamatics.staking.islm;
+package nodamatics.staking.atom;
 
 option go_package = "./;pb";
 
-service IslamicStaking {
+service CosmosStaking {
     rpc GetValidatorInfo(google.protobuf.Empty) returns (cosmos.staking.v1beta1.GetCosmosValidatorInfoResponse);
     rpc GetStakingStats(nodamatics.shared.Address) returns (cosmos.staking.v1beta1.GetCosmosStakingStatsResponse);
     rpc BuildDelegateTransaction(cosmos.staking.v1beta1.AddressAmountRequest) returns (cosmos.staking.v1beta1.CosmosTransaction);
